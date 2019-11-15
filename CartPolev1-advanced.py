@@ -9,7 +9,7 @@ from keras.optimizers import Adam
 kind_env = 'CartPole-v1'
 step_nbr = 500
 episode_nbr = 10000
-score_requirement = 60
+score_requirement = 160
 
 env = gym.make(kind_env)
 env.reset()
@@ -17,40 +17,39 @@ env.reset()
 training_data = []
 accepted_score = []
 
-def get_training_data():
+def get_trained_model(training_data):
+    
+    
+    return trained_model
+
+def get_training_data(trained_model):
     for episode in range(episode_nbr):
         
         score = 0
-        game_memory = []
-        previous_observation = []
+        prev_obs = []
+        choices = []
         
         for step_id in range(step_nbr):
             
-            action = random.randrange(0, 2)
-            observation, reward, done, info = env.step(action)
-            
-            if len(previous_observation) > 0:
-                game_memory.append([previous_observation, action])
-            
-            previous_observation = observation
+            if len(prev_obs) == 0:
+                action = random.randrange(0, 2)
+            else:
+                action = np.argmax(trained_model.predict(prev_obs.reshape(-1, len(prev_obs)))[0])
+
+            choices.append(action)
+            new_observation, reward, done, info = env.step(action)
+            prev_obs = new_observation
             score += reward
             
             if done:
-                print("Euh bah c'est finit frérot.... après {} pas..".format(step_id+1))
                 break
         
             if score >= score_requirement:
-                accepted_score.append(score)
-                for data in game_memory:
-                    if data[1] == 1:
-                        output = [0, 1]
-                    elif data[1] == 0:
-                        output = [1, 0]
-                    training_data.append([data[0], output])
-            
-            env.reset()
-    
-        print(accepted_score)
+                accepted_score.append(score) 
+           
+        env.reset()   
+        
+    print(accepted_score)
     return training_data
 
 
