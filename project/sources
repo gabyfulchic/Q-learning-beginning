@@ -1,0 +1,11 @@
+sources : 
+https://github.com/openai/gym/issues/625
+https://pypi.org/project/gym-tictactoe/
+https://github.com/haje01/gym-tictactoe
+https://github.com/nczempin/gym-tic-tac-toe
+https://github.com/DanielSlater/AlphaToe
+https://github.com/hayoung-kim/mcts-tic-tac-toe
+https://github.com/ClementRomac/DeepQLearning-TicTacToe
+http://blog.tushuhei.com/posts/training-tic-tac-toe-expert-with-temporal-difference-learning/
+https://medium.com/@arnavparuthi/playing-ultimate-tic-tac-toe-using-reinforcement-learning-892f084f7def
+
